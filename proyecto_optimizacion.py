@@ -7,14 +7,16 @@ from pyomo.opt import SolverFactory
 #SETS
 M = ConcreteModel()
 #set para identificar a cada familia
-Familias = RangeSet(1,5)
+#AJUSTAR ESTE PARAMETRO PARA CAMBIAR LA CANTIDAD DE FAMILIAS
+Familias = RangeSet(1,10)
 M.Familias = Familias
 #set para identificar a cada centro
-Centros = RangeSet(1,2)
-M.Centros = RangeSet(1,2)
+#AJUSTAR ESTE PARAMETRO PARA CAMBIAR LA CANTIDAD DE CENTROS
+Centros = RangeSet(1,5)
+M.Centros = Centros
 
 #PARAMETROS
-familias_data = {1:4, 2:3, 3:5, 4:1,5:3}
+familias_data = {1:4, 2:3, 3:5, 4:1, 5:3, 6:7, 7:2, 8:5, 9:1, 10:3}
 #Parametro que dice cuantos miembros tiene cada familia
 M.Miembros_Familias = Param(M.Familias, within=NonNegativeReals, initialize=familias_data)
 
