@@ -27,7 +27,7 @@ M.Centros = Centros
 
 #PARAMETROS
 familias_data = generar_familias(len(Familias),2,20) #Generar entre 2 y 20 miembros
-print("Miembros familias:" + familias_data)
+print("Miembros familias:" + str(familias_data.values()))
 #Parametro que dice cuantos miembros tiene cada familia
 M.Miembros_Familias = Param(M.Familias, within=NonNegativeReals, initialize=familias_data)
 
