@@ -18,15 +18,16 @@ def generar_familias(n_familias, min_miembros, max_miembros):
 M = ConcreteModel()
 #set para identificar a cada familia
 #AJUSTAR ESTE PARAMETRO PARA CAMBIAR LA CANTIDAD DE FAMILIAS
-Familias = RangeSet(1,15)
+Familias = RangeSet(1,50)
 M.Familias = Familias
 #set para identificar a cada centro
 #AJUSTAR ESTE PARAMETRO PARA CAMBIAR LA CANTIDAD DE CENTROS
-Centros = RangeSet(1,8)
+Centros = RangeSet(1,20)
 M.Centros = Centros
 
 #PARAMETROS
 familias_data = generar_familias(len(Familias),2,20) #Generar entre 2 y 20 miembros
+print("Miembros familias:" + familias_data)
 #Parametro que dice cuantos miembros tiene cada familia
 M.Miembros_Familias = Param(M.Familias, within=NonNegativeReals, initialize=familias_data)
 
