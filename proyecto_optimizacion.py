@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-
+import matplotlib.pyplot as plt
 from pyomo.environ import *
 from pyomo.opt import SolverFactory
 
@@ -36,6 +36,7 @@ M.obj = Objective(expr= sum( abs(M.Ocupantes_x_Centro[j] - M.promedio) for j in 
 
 
 #ECUACIONES
+
 #Esta restriccion se utiliza para recalcular el promedio
 M.res1 = Constraint(expr= sum(M.Ocupantes_x_Centro[j]/(CantidadCentros+0.1) for j in M.Centros)==M.promedio)
 
@@ -50,5 +51,16 @@ def Coherencia_rule(Model,j):
 M.Coherencia = Constraint(M.Centros, rule=Coherencia_rule)
 
 SolverFactory('mindtpy').solve(M,mip_solver='glpk',nlp_solver='ipopt')
+
+xi = [value(M.Centros[j]) for j in Centros]
+y = [value(M.Ocupantes_x_Centro[j]) for j in Centros]
+
+fig, ax = plt.subplots()
+ax.bar(x=xi,tick_label= xi, height= y,color = '#9BBB34')
+plt.xlabel('Centro')
+plt.ylabel('Ocupantes')
+plt.title('Ocupación')
+plt.show()
+
 
 M.display()
