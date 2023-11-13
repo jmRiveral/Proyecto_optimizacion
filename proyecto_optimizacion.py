@@ -1,22 +1,32 @@
 import matplotlib.pyplot as plt
-
+import random
 import matplotlib.pyplot as plt
 from pyomo.environ import *
 from pyomo.opt import SolverFactory
+
+
+#Funciones Auxiliares
+def generar_familias(n_familias, min_miembros, max_miembros):
+    familias = {}
+    for i in range(1, n_familias + 1):
+        cantidad_miembros = random.randint(min_miembros, max_miembros)
+        familias[i] = cantidad_miembros
+    return familias
+
 
 #SETS
 M = ConcreteModel()
 #set para identificar a cada familia
 #AJUSTAR ESTE PARAMETRO PARA CAMBIAR LA CANTIDAD DE FAMILIAS
-Familias = RangeSet(1,10)
+Familias = RangeSet(1,15)
 M.Familias = Familias
 #set para identificar a cada centro
 #AJUSTAR ESTE PARAMETRO PARA CAMBIAR LA CANTIDAD DE CENTROS
-Centros = RangeSet(1,5)
+Centros = RangeSet(1,8)
 M.Centros = Centros
 
 #PARAMETROS
-familias_data = {1:4, 2:3, 3:5, 4:1, 5:3, 6:7, 7:2, 8:5, 9:1, 10:3}
+familias_data = generar_familias(len(Familias),2,20) #Generar entre 2 y 20 miembros
 #Parametro que dice cuantos miembros tiene cada familia
 M.Miembros_Familias = Param(M.Familias, within=NonNegativeReals, initialize=familias_data)
 
@@ -66,3 +76,9 @@ plt.show()
 
 
 M.display()
+
+
+
+
+
+
